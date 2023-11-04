@@ -220,6 +220,11 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
     await _submitController.reverse();
 
     if (!DartHelper.isNullOrEmpty(error)) {
+      if (error == 'ConfirmNeeded') {
+        widget.onSwitchConfirmSignup();
+        _switchAuthMode();
+        return false;
+      }
       showErrorToast(context, messages.flushbarTitleError, error!);
       Future.delayed(const Duration(milliseconds: 271), () {
         if (mounted) {
